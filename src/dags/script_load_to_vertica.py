@@ -16,10 +16,10 @@ conn_info = {'host': 'vertica.tgcloudenv.ru',
 
 with vertica_python.connect(**conn_info) as conn:
     cur = conn.cursor()
-    cur.execute("DROP TABLE IF EXISTS SMARTFLIPYANDEXRU__STAGING.group_log;")
-    cur.execute("DROP TABLE IF EXISTS SMARTFLIPYANDEXRU__STAGING.group_log_rej;")
+    cur.execute("DROP TABLE IF EXISTS stv2023121113__STAGING.group_log;")
+    cur.execute("DROP TABLE IF EXISTS stv2023121113__STAGING.group_log_rej;")
     cur.execute("""
-                CREATE TABLE SMARTFLIPYANDEXRU__STAGING.group_log
+                CREATE TABLE stv2023121113__STAGING.group_log
                 (
                     group_id INT NOT NULL,
                     user_id INT,
@@ -29,10 +29,10 @@ with vertica_python.connect(**conn_info) as conn:
                 );
     """)
     cur.execute("""
-                COPY SMARTFLIPYANDEXRU__STAGING.group_log (group_id, user_id, user_id_from, event, datetime)
+                COPY stv2023121113__STAGING.group_log (group_id, user_id, user_id_from, event, datetime)
                 FROM LOCAL '/Users/vp/Documents/GitHub/de-project-sprint-6/data/group_log.csv'
                 DELIMITER ','
-                REJECTED DATA AS TABLE SMARTFLIPYANDEXRU__STAGING.group_log_rej;
+                REJECTED DATA AS TABLE stv2023121113__STAGING.group_log_rej;
      """)
 
     # Make the changes to the database persistent
